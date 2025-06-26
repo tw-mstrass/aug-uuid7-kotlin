@@ -77,9 +77,9 @@ Remember to follow the instructions in guidelines.md, especially about writing s
    [x] It has the correct string representation format
 
 3. [ ] Implement timestamp functionality
-   [ ] The timestamp component reflects the current time
+   [x] The timestamp component reflects the current time
    [ ] UUIDs created in sequence have monotonically increasing timestamps
-   [ ] Timestamp can be extracted from the UUID
+   [x] Timestamp can be extracted from the UUID
 
 4. [ ] Implement randomness and uniqueness
    [ ] The random component is properly generated

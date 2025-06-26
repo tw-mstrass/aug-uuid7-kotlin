@@ -4,6 +4,9 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.string.shouldMatch
+import io.kotest.matchers.longs.shouldBeGreaterThanOrEqual
+import io.kotest.matchers.longs.shouldBeLessThanOrEqual
+import java.time.Instant
 import java.util.UUID
 
 class Uuid7Test : FunSpec({
@@ -39,5 +42,18 @@ class Uuid7Test : FunSpec({
         // Version 7 UUIDs have the 13th character as '7'
         // Variant 10 UUIDs have the 17th character as '8', '9', 'a', or 'b'
         uuidString shouldMatch "[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}".toRegex(RegexOption.IGNORE_CASE)
+    }
+
+    test("the timestamp component reflects the current time") {
+        val beforeMs = Instant.now().toEpochMilli()
+        val uuid = Uuid7.generate()
+        val afterMs = Instant.now().toEpochMilli()
+
+        // Extract the timestamp from the UUID
+        val timestamp = Uuid7.extractTimestamp(uuid)
+
+        // The timestamp should be between beforeMs and afterMs
+        timestamp shouldBeGreaterThanOrEqual beforeMs
+        timestamp shouldBeLessThanOrEqual afterMs
     }
 })
