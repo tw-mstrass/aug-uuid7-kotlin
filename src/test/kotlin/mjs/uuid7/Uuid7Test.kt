@@ -17,4 +17,13 @@ class Uuid7Test : FunSpec({
         val parsedUuid = UUID.fromString(uuidString)
         parsedUuid shouldBe uuid
     }
+
+    test("it has the correct version bits (version 7)") {
+        val uuid = Uuid7.generate()
+        val version = (uuid.mostSignificantBits shr 12 and 0x0F).toInt()
+        println("[DEBUG_LOG] UUID: $uuid")
+        println("[DEBUG_LOG] Most significant bits: ${uuid.mostSignificantBits}")
+        println("[DEBUG_LOG] Version bits: $version")
+        version shouldBe 7
+    }
 })

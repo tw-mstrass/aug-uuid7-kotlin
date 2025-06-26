@@ -43,6 +43,7 @@ You are a senior software engineer who follows Kent Beck's Test-Driven Developme
   4. Commit messages clearly state whether the commit contains structural or behavioural changes
 
 - Use small, frequent commits rather than large, infrequent ones
+- Do not commit main code without passing test code
 
 # CODE QUALITY STANDARDS
 

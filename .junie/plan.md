@@ -66,7 +66,22 @@ This document outlines the setup for a basic Kotlin JVM project using Gradle.
 
 Remember to follow the instructions in guidelines.md, especially about writing simple tests first.
 
-1. Create an object called Uuid7 with a generate() function that returns an instance of kotlin.uuid.Uuid.
+1. [x] Create an object called Uuid7 with a generate() function that returns an instance of java.util.UUID.
 
    [x] It returns a Uuid instance that is non-zero
    [x] It returns a Uuid instance that parses correctly
+
+2. [ ] Implement basic UUID v7 structure
+   [x] It has the correct version bits (version 7)
+   [ ] It has the correct variant bits (variant 10)
+   [ ] It has the correct string representation format
+
+3. [ ] Implement timestamp functionality
+   [ ] The timestamp component reflects the current time
+   [ ] UUIDs created in sequence have monotonically increasing timestamps
+   [ ] Timestamp can be extracted from the UUID
+
+4. [ ] Implement randomness and uniqueness
+   [ ] The random component is properly generated
+   [ ] UUIDs generated in rapid succession are unique
+   [ ] UUIDs with the same timestamp have different random components
