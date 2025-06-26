@@ -69,4 +69,4 @@ Remember to follow the instructions in guidelines.md, especially about writing s
 1. Create an object called Uuid7 with a generate() function that returns an instance of kotlin.uuid.Uuid.
 
    [x] It returns a Uuid instance that is non-zero
-   [ ] It returns a Uuid instance that parses correctly
+   [x] It returns a Uuid instance that parses correctly
