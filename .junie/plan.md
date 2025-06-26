@@ -98,3 +98,9 @@ The UUID v7 implementation is now complete. It satisfies all the requirements:
 6. [x] It ensures UUIDs with the same timestamp have different random components
 
 All tests are passing, and the implementation is ready for use.
+
+# Include a monotonically increasing counter in the UUID
+
+[x] 2000 UUIDs generated quickly sort in the order they are generated, even if they have the same timestamp
+
+The implementation now includes a monotonically increasing counter that ensures UUIDs sort in the order they were generated, even if they have the same timestamp. The counter is stored in the 12 bits that were previously random bits in the most significant bits of the UUID. The counter is incremented for each UUID generated with the same timestamp and reset when the timestamp changes.

@@ -6,6 +6,7 @@ import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.string.shouldMatch
 import io.kotest.matchers.longs.shouldBeGreaterThanOrEqual
 import io.kotest.matchers.longs.shouldBeLessThanOrEqual
+import io.kotest.matchers.collections.shouldBeSortedWith
 import java.time.Instant
 import java.util.UUID
 
@@ -156,6 +157,30 @@ class Uuid7Test : FunSpec({
                 // Verify we have the expected number of unique random components for this timestamp
                 randomComponentsForTimestamp.size shouldBe timestampUuids.size
             }
+        }
+    }
+
+    test("2000 UUIDs generated quickly sort in the order they are generated, even if they have the same timestamp") {
+        // Generate 2000 UUIDs as quickly as possible
+        val count = 2000
+        val generatedUuids = mutableListOf<UUID>()
+
+        // Generate UUIDs and keep track of their original order
+        repeat(count) {
+            val uuid = Uuid7.generate()
+            generatedUuids.add(uuid)
+        }
+
+        // Create a copy of the UUIDs for sorting
+        val sortedUuids = generatedUuids.toList()
+
+        // Sort the UUIDs
+        val sortedByUuidOrder = sortedUuids.sorted()
+
+        // Verify that the UUIDs are sorted in the same order they were generated
+        // This means that even UUIDs with the same timestamp should maintain their generation order
+        for (i in 0 until count) {
+            sortedByUuidOrder[i] shouldBe generatedUuids[i]
         }
     }
 })
