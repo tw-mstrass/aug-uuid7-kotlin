@@ -56,4 +56,17 @@ class Uuid7Test : FunSpec({
         timestamp shouldBeGreaterThanOrEqual beforeMs
         timestamp shouldBeLessThanOrEqual afterMs
     }
+
+    test("UUIDs created in sequence have monotonically increasing timestamps") {
+        val count = 1000
+        val uuids = List(count) { Uuid7.generate() }
+
+        // Extract timestamps from all UUIDs
+        val timestamps = uuids.map { Uuid7.extractTimestamp(it) }
+
+        // Check that each timestamp is greater than or equal to the previous one
+        for (i in 1 until timestamps.size) {
+            timestamps[i] shouldBeGreaterThanOrEqual timestamps[i-1]
+        }
+    }
 })

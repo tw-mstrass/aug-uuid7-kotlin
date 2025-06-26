@@ -76,9 +76,9 @@ Remember to follow the instructions in guidelines.md, especially about writing s
    [x] It has the correct variant bits (variant 10)
    [x] It has the correct string representation format
 
-3. [ ] Implement timestamp functionality
+3. [x] Implement timestamp functionality
    [x] The timestamp component reflects the current time
-   [ ] UUIDs created in sequence have monotonically increasing timestamps
+   [x] UUIDs created in sequence have monotonically increasing timestamps
    [x] Timestamp can be extracted from the UUID
 
 4. [ ] Implement randomness and uniqueness

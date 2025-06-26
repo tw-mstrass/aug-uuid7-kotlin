@@ -9,25 +9,21 @@ object Uuid7 {
         // Get current timestamp in milliseconds
         val timestamp = Instant.now().toEpochMilli()
 
-        // Generate random bits for the UUID
-        val randomMsb = Random.nextLong()
-        val randomLsb = Random.nextLong()
+        // Create the most significant bits:
+        // - 48 bits: timestamp
+        // - 4 bits: version (7)
+        // - 12 bits: random
+        val msb = (timestamp shl 16) or // Shift timestamp to the left by 16 bits
+                 (7L shl 12) or // Set version to 7 (bits 12-15)
+                 (Random.nextInt(0, 4096).toLong()) // 12 random bits
 
-        // Set the timestamp in the most significant 48 bits
-        // Clear the most significant 48 bits and then set them to the timestamp
-        val msb = ((timestamp and 0x0000_FFFF_FFFF_FFFFL) shl 16) or
-                 (randomMsb and 0x0000_0000_0000_FFFFL)
+        // Create the least significant bits:
+        // - 2 bits: variant (10 binary)
+        // - 62 bits: random
+        val lsb = (2L shl 62) or // Set variant to 10 binary (bits 62-63)
+                 (Random.nextLong() and 0x3FFFFFFFFFFFFFFFL) // 62 random bits
 
-        // Set the version bits to 7
-        // Clear the version bits (bits 12-15) and then set them to 7
-        val msbWithVersion = (msb and -0x1000) or 0x7000
-
-        // Set the variant bits to 10 (binary) or 2 (decimal)
-        // Clear the variant bits (bits 62-63) and then set them to 10 (binary)
-        // We use Long.MIN_VALUE which is 0x8000000000000000L (bit 63 set to 1)
-        val lsb = (randomLsb and Long.MAX_VALUE) or Long.MIN_VALUE
-
-        return UUID(msbWithVersion, lsb)
+        return UUID(msb, lsb)
     }
 
     fun extractTimestamp(uuid: UUID): Long {
