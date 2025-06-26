@@ -95,4 +95,21 @@ class Uuid7Test : FunSpec({
         // Verify we have the expected number of unique UUIDs
         uuids.size shouldBe count
     }
+
+    test("UUIDs generated in rapid succession are unique") {
+        // Generate UUIDs as fast as possible
+        val count = 10000
+        val uuids = HashSet<UUID>()
+
+        // Generate UUIDs in a tight loop to simulate rapid succession
+        repeat(count) {
+            val uuid = Uuid7.generate()
+
+            // Add the UUID to the set and verify it's unique
+            uuids.add(uuid) shouldBe true
+        }
+
+        // Verify we have the expected number of unique UUIDs
+        uuids.size shouldBe count
+    }
 })

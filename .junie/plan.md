@@ -83,5 +83,5 @@ Remember to follow the instructions in guidelines.md, especially about writing s
 
 4. [ ] Implement randomness and uniqueness
    [x] The random component is properly generated
-   [ ] UUIDs generated in rapid succession are unique
+   [x] UUIDs generated in rapid succession are unique
    [ ] UUIDs with the same timestamp have different random components
