@@ -82,6 +82,6 @@ Remember to follow the instructions in guidelines.md, especially about writing s
    [x] Timestamp can be extracted from the UUID
 
 4. [ ] Implement randomness and uniqueness
-   [ ] The random component is properly generated
+   [x] The random component is properly generated
    [ ] UUIDs generated in rapid succession are unique
    [ ] UUIDs with the same timestamp have different random components

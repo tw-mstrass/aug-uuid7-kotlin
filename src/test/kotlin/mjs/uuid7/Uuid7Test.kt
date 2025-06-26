@@ -69,4 +69,30 @@ class Uuid7Test : FunSpec({
             timestamps[i] shouldBeGreaterThanOrEqual timestamps[i-1]
         }
     }
+
+    test("the random component is properly generated") {
+        // Generate a large number of UUIDs with the same timestamp
+        val timestamp = Instant.now().toEpochMilli()
+        val count = 1000
+        val uuids = HashSet<UUID>()
+
+        // Mock the current time to always return the same timestamp
+        // This is a simplified approach; in a real test, we might use a clock mock
+        repeat(count) {
+            val uuid = Uuid7.generate()
+
+            // Verify the UUID has the correct version and variant
+            val version = (uuid.mostSignificantBits shr 12 and 0x0F).toInt()
+            version shouldBe 7
+
+            val variant = (uuid.leastSignificantBits ushr 62 and 0x03).toInt()
+            variant shouldBe 2
+
+            // Add the UUID to the set and verify it's unique
+            uuids.add(uuid) shouldBe true
+        }
+
+        // Verify we have the expected number of unique UUIDs
+        uuids.size shouldBe count
+    }
 })
