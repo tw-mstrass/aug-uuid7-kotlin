@@ -21,9 +21,12 @@ class Uuid7Test : FunSpec({
     test("it has the correct version bits (version 7)") {
         val uuid = Uuid7.generate()
         val version = (uuid.mostSignificantBits shr 12 and 0x0F).toInt()
-        println("[DEBUG_LOG] UUID: $uuid")
-        println("[DEBUG_LOG] Most significant bits: ${uuid.mostSignificantBits}")
-        println("[DEBUG_LOG] Version bits: $version")
         version shouldBe 7
+    }
+
+    test("it has the correct variant bits (variant 10)") {
+        val uuid = Uuid7.generate()
+        val variant = (uuid.leastSignificantBits ushr 62 and 0x03).toInt()
+        variant shouldBe 2 // Binary 10
     }
 })
