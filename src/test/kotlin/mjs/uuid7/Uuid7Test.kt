@@ -112,4 +112,50 @@ class Uuid7Test : FunSpec({
         // Verify we have the expected number of unique UUIDs
         uuids.size shouldBe count
     }
+
+    test("UUIDs with the same timestamp have different random components") {
+        // Generate a set of UUIDs with the same timestamp
+        val count = 1000
+        val uuids = mutableListOf<UUID>()
+        val randomComponents = HashSet<Long>()
+
+        // Generate UUIDs and extract their random components
+        repeat(count) {
+            val uuid = Uuid7.generate()
+            uuids.add(uuid)
+
+            // Extract the timestamp
+            val timestamp = Uuid7.extractTimestamp(uuid)
+
+            // Extract the random component (12 bits from MSB and all bits from LSB except variant bits)
+            val msbRandom = uuid.mostSignificantBits and 0x0000_0000_0000_0FFFL
+            val lsbRandom = uuid.leastSignificantBits and 0x3FFF_FFFF_FFFF_FFFFL
+            val randomComponent = (msbRandom shl 62) or lsbRandom
+
+            // Add the random component to the set
+            randomComponents.add(randomComponent)
+        }
+
+        // Group UUIDs by timestamp
+        val uuidsByTimestamp = uuids.groupBy { Uuid7.extractTimestamp(it) }
+
+        // For each group of UUIDs with the same timestamp, verify they have different random components
+        uuidsByTimestamp.forEach { (timestamp, timestampUuids) ->
+            if (timestampUuids.size > 1) {
+                val randomComponentsForTimestamp = HashSet<Long>()
+
+                timestampUuids.forEach { uuid ->
+                    val msbRandom = uuid.mostSignificantBits and 0x0000_0000_0000_0FFFL
+                    val lsbRandom = uuid.leastSignificantBits and 0x3FFF_FFFF_FFFF_FFFFL
+                    val randomComponent = (msbRandom shl 62) or lsbRandom
+
+                    // Verify this random component is unique for this timestamp
+                    randomComponentsForTimestamp.add(randomComponent) shouldBe true
+                }
+
+                // Verify we have the expected number of unique random components for this timestamp
+                randomComponentsForTimestamp.size shouldBe timestampUuids.size
+            }
+        }
+    }
 })

@@ -81,7 +81,7 @@ Remember to follow the instructions in guidelines.md, especially about writing s
    [x] UUIDs created in sequence have monotonically increasing timestamps
    [x] Timestamp can be extracted from the UUID
 
-4. [ ] Implement randomness and uniqueness
+4. [x] Implement randomness and uniqueness
    [x] The random component is properly generated
    [x] UUIDs generated in rapid succession are unique
-   [ ] UUIDs with the same timestamp have different random components
+   [x] UUIDs with the same timestamp have different random components
