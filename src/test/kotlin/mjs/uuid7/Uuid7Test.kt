@@ -3,6 +3,7 @@ package mjs.uuid7
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import io.kotest.matchers.string.shouldMatch
 import java.util.UUID
 
 class Uuid7Test : FunSpec({
@@ -28,5 +29,15 @@ class Uuid7Test : FunSpec({
         val uuid = Uuid7.generate()
         val variant = (uuid.leastSignificantBits ushr 62 and 0x03).toInt()
         variant shouldBe 2 // Binary 10
+    }
+
+    test("it has the correct string representation format") {
+        val uuid = Uuid7.generate()
+        val uuidString = uuid.toString()
+
+        // UUID format: 8-4-4-4-12 hexadecimal digits
+        // Version 7 UUIDs have the 13th character as '7'
+        // Variant 10 UUIDs have the 17th character as '8', '9', 'a', or 'b'
+        uuidString shouldMatch "[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}".toRegex(RegexOption.IGNORE_CASE)
     }
 })

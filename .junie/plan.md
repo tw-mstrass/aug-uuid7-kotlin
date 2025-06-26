@@ -71,10 +71,10 @@ Remember to follow the instructions in guidelines.md, especially about writing s
    [x] It returns a Uuid instance that is non-zero
    [x] It returns a Uuid instance that parses correctly
 
-2. [ ] Implement basic UUID v7 structure
+2. [x] Implement basic UUID v7 structure
    [x] It has the correct version bits (version 7)
    [x] It has the correct variant bits (variant 10)
-   [ ] It has the correct string representation format
+   [x] It has the correct string representation format
 
 3. [ ] Implement timestamp functionality
    [ ] The timestamp component reflects the current time
