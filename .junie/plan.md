@@ -61,3 +61,12 @@ This document outlines the setup for a basic Kotlin JVM project using Gradle.
    - [x] Verify that buildSrc is not being used in the project
    - [x] Delete the buildSrc directory and all its contents
    - [x] Verify that the project still builds correctly after removal
+
+# UUID v7 Implementation
+
+Remember to follow the instructions in guidelines.md, especially about writing simple tests first.
+
+1. Create an object called Uuid7 with a generate() function that returns an instance of kotlin.uuid.Uuid.
+
+   [x] It returns a Uuid instance that is non-zero
+   [ ] It returns a Uuid instance that parses correctly
